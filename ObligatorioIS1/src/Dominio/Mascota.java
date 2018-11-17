@@ -1,19 +1,42 @@
 
 package Dominio;
 
+import java.util.ArrayList;
+
 public class Mascota {
     private String nombre;
     private int altura;
     private int peso;
     public String comentario;
+    private ArrayList<Actividad> listaActividades;
+    private ArrayList<String> listaNotificados;
 
+    
+   
+    
     public Mascota(String nombre, int altura, int peso, String comentario) {
         this.nombre = nombre;
         this.altura = altura;
         this.peso = peso;
         this.comentario = comentario;
+        this.listaActividades=new ArrayList<Actividad>();
+        this.listaNotificados=new ArrayList<String>();
+    }
+    
+    
+ public ArrayList<Actividad> getListaActividades() {
+        return listaActividades;
+    }
+public ArrayList<String> getListaNotificados() {
+        return listaNotificados;
     }
 
+    public void setListaNotificados(ArrayList<String> listaNotificados) {
+        this.listaNotificados = listaNotificados;
+    }
+    public void setListaActividades(ArrayList<Actividad> listaActividades) {
+        this.listaActividades = listaActividades;
+    }
 
     public int getPeso() {
         return peso;

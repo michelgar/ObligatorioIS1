@@ -3,23 +3,24 @@ package Dominio;
 
 
 public class Actividad {
+   public enum TipoActividad {
+       PASEO,BAÑO,ALIMENTADO,VETERINARIO    
+   }
    public Mascota mascota;
    public Usuario usuario;
    public int dia;
    public int mes;
-Paseo paseo;
-   boolean baño;
-   boolean alimentado;
-
+   Paseo paseo;
+   TipoActividad tipo;
    
    
-    public Actividad(Mascota mascota,Usuario usuario, int dia,int mes , Paseo paseo, boolean baño, boolean alimentado) {
+    public Actividad(Mascota mascota,Usuario usuario, int dia,int mes , Paseo paseo,TipoActividad tipo) {
         this.usuario = usuario;
         this.mes = mes;
         this.dia=dia;
         paseo = (null);
-        baño = false;
-        alimentado = false;
+        this.tipo=tipo;
+        
     }
     public Mascota getMascota() {
         return mascota;
@@ -61,25 +62,11 @@ Paseo paseo;
         this.paseo = paseo;
     }
 
-    public boolean esBaño() {
-        return baño;
-    }
-
-    public void setBaño(boolean baño) {
-        this.baño = baño;
-    }
-
-    public boolean esAlimentado() {
-        return alimentado;
-    }
-
-    public void setAlimentado(boolean alimentado) {
-        this.alimentado = alimentado;
-    }
+    
    
      @Override
     public String toString() {
-        return "Mascota=" + mascota + ", usuario=" + usuario + ", dia=" + dia + ", mes=" + mes + ", paseo=" + paseo + ", ba\u00f1o=" + baño + ", alimentado=" + alimentado + '}';
+        return "Mascota=" + mascota + ", usuario=" + usuario + ", dia=" + dia + ", mes=" + mes + ", paseo=" + paseo +  '}';
     }
    
 }

@@ -9,12 +9,21 @@ public class Sistema {
     private ArrayList<String> listaAlimentos;
     private ArrayList<Usuario> listaUsuarios;
     private ArrayList<Paseo> listaPaseos;
-    
+    private ArrayList<Veterinario> listaVeterinarios;
+
+    public ArrayList<Veterinario> getListaVeterinarios() {
+        return listaVeterinarios;
+    }
+
+    public void setListaVeterinarios(ArrayList<Veterinario> listaVeterinarios) {
+        this.listaVeterinarios = listaVeterinarios;
+    }
 
     public Sistema() {
         this.listaMascotas = new ArrayList<Mascota>();
         this.listaUsuarios = new ArrayList<Usuario>();
         this.listaPaseos = new ArrayList<Paseo>();
+        this.listaVeterinarios = new ArrayList<Veterinario>();
         
     }
 
