@@ -24,6 +24,7 @@ private Sistema modelo;
         calenPaseos = new javax.swing.JButton();
         agregarNotificacion = new javax.swing.JButton();
         idaAlVet = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,6 +56,13 @@ private Sistema modelo;
             }
         });
 
+        jButton1.setText("Agendar Comida");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -66,7 +74,9 @@ private Sistema modelo;
                         .addComponent(calenPaseos, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                         .addComponent(agregarNotificacion)
                         .addComponent(calenComun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(idaAlVet, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(idaAlVet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(136, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -80,7 +90,9 @@ private Sistema modelo;
                 .addComponent(agregarNotificacion)
                 .addGap(27, 27, 27)
                 .addComponent(idaAlVet)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(jButton1)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,6 +124,11 @@ private Sistema modelo;
         idaVet.setVisible(true);
     }//GEN-LAST:event_idaAlVetActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       AgendarComida agendarcomida=new AgendarComida(modelo);
+       agendarcomida.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -119,5 +136,6 @@ private Sistema modelo;
     private javax.swing.JButton calenComun;
     private javax.swing.JButton calenPaseos;
     private javax.swing.JButton idaAlVet;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

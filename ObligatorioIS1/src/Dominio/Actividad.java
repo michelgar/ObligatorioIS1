@@ -20,7 +20,7 @@ public class Actividad {
         this.dia=dia;
         paseo = (null);
         this.tipo=tipo;
-        
+        mascota =(null);
     }
     public Mascota getMascota() {
         return mascota;
@@ -62,11 +62,25 @@ public class Actividad {
         this.paseo = paseo;
     }
 
-    
+    public String mensajeRetorno(){
+        String retorno="Fecha: "+dia+"/"+mes;
+            switch(this.tipo){
+                case PASEO:
+                retorno=retorno+"Paseo";
+                case BAÑO:
+                retorno=retorno+"Baño";
+                case ALIMENTADO:
+                retorno=retorno+"Dar comida";
+                case VETERINARIO:
+                retorno=retorno+"Ida al veterinario";
+            }
+                
+   return retorno;
+}
    
      @Override
     public String toString() {
-        return "Mascota=" + mascota + ", usuario=" + usuario + ", dia=" + dia + ", mes=" + mes + ", paseo=" + paseo +  '}';
+        return this.mensajeRetorno();
     }
    
 }

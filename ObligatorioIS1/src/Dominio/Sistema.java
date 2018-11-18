@@ -10,7 +10,12 @@ public class Sistema {
     private ArrayList<Usuario> listaUsuarios;
     private ArrayList<Paseo> listaPaseos;
     private ArrayList<Veterinario> listaVeterinarios;
+    public Notificacion notificacion;
+    private ArrayList<Actividad> listaActividades;
 
+    
+    
+    
     public ArrayList<Veterinario> getListaVeterinarios() {
         return listaVeterinarios;
     }
@@ -24,10 +29,23 @@ public class Sistema {
         this.listaUsuarios = new ArrayList<Usuario>();
         this.listaPaseos = new ArrayList<Paseo>();
         this.listaVeterinarios = new ArrayList<Veterinario>();
-        
+        this.notificacion= new Notificacion();
+        this.listaAlimentos=new ArrayList<String>();
+        this.listaActividades=new ArrayList<Actividad>();
     }
 
-   
+    
+
+    public ArrayList<String> getListaAlimentos() {
+        return listaAlimentos;
+    }
+   public ArrayList<Actividad> getListaActividades() {
+        return listaActividades;
+    }
+
+    public void setListaActividades(ArrayList<Actividad> listaActividades) {
+        this.listaActividades = listaActividades;
+    }
 
     public ArrayList<Usuario> getListaUsuarios() {
         return listaUsuarios;
@@ -53,6 +71,7 @@ public class Sistema {
         this.listaPaseos = listaPaseos;
     }
     
+   
      public boolean validarHora(String hora) {
         boolean esValido = true;
         if (hora.trim().isEmpty()) {
@@ -72,21 +91,16 @@ public class Sistema {
       
         return esValido;
     }
- public String[][] crearCalendarioVacio() {
-
-        String[][] calen = new String[6][8];
-        for (int i = 0; i < calen.length; i++) {
-            for (int j = 0; j < calen[0].length; j++) {
-
-                calen[i][j] = " ";
-               
-            }
-        }
-
-        return calen;
+ public String actividadesPorDia(int dia, int mes) {
+     String retorno="";
+     for (int i = 0; i < this.getListaActividades().size(); i++) {
+          if(this.getListaActividades().get(i).getDia()==dia&& this.getListaActividades().get(i).getMes()==mes){
+              retorno = retorno + this.getListaActividades().get(i).toString()+"\n";
+          }
+       }
+        return retorno;
     }
- public void ingresarActividad(int dia, int mes,Actividad actividad,String[][] calend){
-
-     
+ public void agregarAlimento(){
+     this.getListaAlimentos().add("Dog chow");
  }
 }

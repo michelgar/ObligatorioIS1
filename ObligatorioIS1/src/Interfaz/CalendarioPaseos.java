@@ -1,19 +1,15 @@
 package Interfaz;
 import Dominio.Actividad;
 import static Dominio.Actividad.TipoActividad.PASEO;
-import Dominio.Calendario;
+
 import Dominio.Mascota;
 import Dominio.Paseo;
 import Dominio.Sistema;
 import Dominio.Usuario;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.DefaultListModel;
-import javax.swing.Timer;
+
 
 
 public class CalendarioPaseos extends javax.swing.JFrame {
@@ -141,9 +137,9 @@ public void cargarMascotas() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
-       Calendario calendario;
-      Usuario u=(Usuario) listaUsuarios.getSelectedValue();
-      Mascota m=(Mascota) listaMascotas.getSelectedValue();
+      
+       Usuario u=(Usuario) listaUsuarios.getSelectedValue();
+       Mascota m=(Mascota) listaMascotas.getSelectedValue();
        String h=hora.getText();
        Paseo p = new Paseo(u,m,h);
        modelo.getListaPaseos().add(p);
@@ -151,9 +147,9 @@ public void cargarMascotas() {
        GregorianCalendar gc=new GregorianCalendar();
        gc.setTime(fecha);
        int dia=gc.get(GregorianCalendar.DAY_OF_MONTH);
-       int mes= gc.get(GregorianCalendar.MONTH) + 1;///Se suma el 1, porque los meses están dados del 0 al 11
-//       int año=gc.get(GregorianCalendar.YEAR);
+       int mes= gc.get(GregorianCalendar.MONTH) + 1;
        Actividad actividad= new Actividad(m,u,dia,mes,p,PASEO);
+       modelo.notificacion.scheduleMail(u, actividad.toString(), fecha);
        m.getListaActividades().add(actividad);
     }//GEN-LAST:event_botonAgregarActionPerformed
 

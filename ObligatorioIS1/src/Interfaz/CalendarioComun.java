@@ -1,68 +1,109 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Interfaz;
 import Dominio.Sistema;
-import java.time.*;
+
 import javax.swing.JButton;
 import java.awt.Color;
-
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import java.time.LocalDate;
-
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 public class CalendarioComun extends javax.swing.JFrame {
 private JButton[][] botones;
 private Sistema modelo;
-
-
-
-
-
+int realYear, realMonth, realDay, currentYear, currentMonth;
     public CalendarioComun(Sistema unModelo) throws InterruptedException {
          modelo = unModelo;
         initComponents();
-  
-        String[] dias = {"", "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"};
         
-        panelCalendario.setLayout(new GridLayout(9, 8));
-        botones = new JButton[9][9];
-        
-        for (int i = 0; i <= 8; i++) {
-            for (int j = 0; j <= 7; j++) {
+       
+         panelCalendario.setLayout(new GridLayout(7, 7));
+       botones = new JButton[7][7];
+         String[] dias = {"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"};
+         for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
                 JButton jButton = new JButton();
                 jButton.addActionListener(new CalendarioComun.ListenerBoton(i, j));
                 panelCalendario.add(jButton);
                 botones[i][j] = jButton;
                 botones[0][j].setEnabled(false);
-                botones[i][0].setEnabled(false);
                 botones[0][j].setText(dias[j]);
                 botones[0][j].setBackground(Color.LIGHT_GRAY);
-                botones[i][j].setMargin(new Insets(-5, -5, -5, -5));
+               
                 
             }
         }
+        botonSig.addActionListener(new btnNext_Action());
         
-      Calendar ahora = Calendar.getInstance();
-      int primerDia=ahora.get(Calendar.DAY_OF_WEEK)+1;
+         GregorianCalendar cal = new GregorianCalendar(); //Create calendar
+        realDay = cal.get(GregorianCalendar.DAY_OF_MONTH); //Get day
+        realMonth = cal.get(GregorianCalendar.MONTH); //Get month
+        realYear = cal.get(GregorianCalendar.YEAR); //Get year
+        currentMonth = realMonth; //Match month and year
+        currentYear = realYear;
+       this.llenarCalendario(realMonth, realYear);
+
+    }
+   public class btnNext_Action implements ActionListener{
+        public void actionPerformed (ActionEvent e){
+            if (currentMonth == 11){ //Foward one year
+                currentMonth = 0;
+                currentYear += 1;
+            }
+            else{ //Foward one month
+                currentMonth += 1;
+            }
+            llenarCalendario(currentMonth, currentYear);
+        }
+    }
+   
+   public void borrarMesant(int diasMes){
+       for (int i = 1; i <7; i++) { 
+          
+            for (int j = 0; j < 7; j++) {             
+           
+              
+               botones[i][j].setText(" ");
+           
+               }
+           }
+       
+   }
+   
+   public void colorearActividad(String dia,int mes){
+       for (int i = 1; i <7; i++) { 
+          
+            for (int j = 0; j < 7; j++) {
+                
+                String d=botones[i][j].getText();
+                if(d.equalsIgnoreCase(dia)){
+                    
+                }
+                
+            }
+       }
+   }
+    public void llenarCalendario(int mes,int año){
+        
+        
+        
+      GregorianCalendar cal = new GregorianCalendar(año,mes, 1);
+      this.borrarMesant(cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+      int primerDia=cal.get(GregorianCalendar.DAY_OF_WEEK)-1;
       int cont=1;
-      for (int i = 1; i <=8; i++) {          
-            for (int j = primerDia; j <= 7; j++) {             
-           if(cont<=ahora.getActualMaximum(Calendar.DAY_OF_MONTH)){
+      for (int i = 1; i <7; i++) { 
+          
+            for (int j = primerDia; j < 7; j++) {             
+           if(cont<=cal.getActualMaximum(Calendar.DAY_OF_MONTH)){
                String num = Integer.toString(cont);
                botones[i][j].setText(num);
             primerDia++;
             cont++;
-            if(primerDia>7){
-                primerDia=1;
+            if(primerDia>6){
+                primerDia=0;
             }
            }
             
@@ -70,7 +111,7 @@ private Sistema modelo;
             }
            
             }
-
+        
     }
  private class ListenerBoton implements ActionListener {
 
@@ -100,6 +141,9 @@ private void clickBoton(int fila, int columna) {
     private void initComponents() {
 
         panelCalendario = new javax.swing.JPanel();
+        mes = new javax.swing.JLabel();
+        botonSig = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,28 +158,60 @@ private void clickBoton(int fila, int columna) {
             .addGap(0, 154, Short.MAX_VALUE)
         );
 
+        botonSig.setText("Siguiente");
+
+        jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(panelCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(botonSig)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(mes, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(panelCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addComponent(mes, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonSig)
+                    .addComponent(jButton2))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonSig;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel mes;
     private javax.swing.JPanel panelCalendario;
     // End of variables declaration//GEN-END:variables
 }
