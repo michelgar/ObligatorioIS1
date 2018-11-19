@@ -41,7 +41,7 @@
                       <Component id="panelCalendario" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="104" max="32767" attributes="0"/>
+              <EmptySpace pref="277" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -51,7 +51,7 @@
               <Component id="mes" min="-2" pref="18" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="panelCalendario" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="83" max="32767" attributes="0"/>
+              <EmptySpace pref="272" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="botonSig" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>

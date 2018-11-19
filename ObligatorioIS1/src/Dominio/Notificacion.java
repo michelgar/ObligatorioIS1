@@ -1,7 +1,7 @@
 package Dominio;
 import java.util.Timer;
 
-import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -21,9 +21,9 @@ public class Notificacion extends TimerTask {
 
     private String password;
     private String userName;
-
+    
     public Notificacion() {
-        this.password = ("Theoden12");
+        this.password = ("Theoden123");
         this.userName = ("michelgarcen@gmail.com");
     }
 
@@ -31,10 +31,10 @@ public class Notificacion extends TimerTask {
     public void scheduleMail(Usuario usuario, String mensaje,Date fecha) {
 
   
-        Calendar calendar = Calendar.getInstance();
+       Calendar calendar = Calendar.getInstance();
         calendar.setTime(fecha);
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 0);
+       calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 54);
         Timer time = new Timer(); 
         Task task=new Task(this,mensaje,usuario);
         time.schedule(task, calendar.getTime());
@@ -61,6 +61,7 @@ public class Notificacion extends TimerTask {
             message.setFrom(new InternetAddress(userName));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(usuario.getCorreo()));
+            message.setText(mensaje);
             Transport.send(message);
 
         } catch (MessagingException e) {

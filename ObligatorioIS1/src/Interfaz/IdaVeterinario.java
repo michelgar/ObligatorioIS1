@@ -157,7 +157,7 @@ public void cargarVeterinario() {
         int mes= gc.get(GregorianCalendar.MONTH) + 1;///Se suma el 1, porque los meses están dados del 0 al 11
         //       int año=gc.get(GregorianCalendar.YEAR);
         Actividad actividad= new Actividad(m,u,dia,mes,null,VETERINARIO);
-        modelo.notificacion.scheduleMail(u, actividad.toString(), fecha);
+   //     modelo.notificacion.scheduleMail(u, actividad.toString(), fecha);
         m.getListaActividades().add(actividad);
     }//GEN-LAST:event_botonAgregarActionPerformed
 

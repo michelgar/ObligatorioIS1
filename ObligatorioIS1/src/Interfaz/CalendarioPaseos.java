@@ -9,6 +9,8 @@ import Dominio.Usuario;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 
 
@@ -22,6 +24,8 @@ public Sistema modelo;
         initComponents();
         this.cargarUsuarios();
         this.cargarMascotas();
+        listaUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION );
+         listaMascotas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION );
         listaUsuarios.setModel(modeloLista);
         listaMascotas.setModel(modeloLista2);
         calendarioFecha.getJCalendar();
@@ -48,7 +52,6 @@ public void cargarMascotas() {
         jLabel1 = new javax.swing.JLabel();
         botonAgregar = new javax.swing.JButton();
         botonSalir = new javax.swing.JButton();
-        fechaPrueba = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaMascotas = new javax.swing.JList();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -56,7 +59,11 @@ public void cargarMascotas() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        hora.setText("ej. 24:00");
+        hora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                horaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Hora");
 
@@ -83,6 +90,12 @@ public void cargarMascotas() {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(103, 103, 103)
+                .addComponent(calendarioFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(hora, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(botonAgregar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
@@ -92,23 +105,11 @@ public void cargarMascotas() {
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(fechaPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(calendarioFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(hora, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                        .addGap(145, 145, 145)
+                        .addComponent(jLabel1))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
@@ -124,9 +125,7 @@ public void cargarMascotas() {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(calendarioFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addComponent(fechaPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAgregar)
                     .addComponent(botonSalir))
@@ -138,10 +137,11 @@ public void cargarMascotas() {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
       
-       Usuario u=(Usuario) listaUsuarios.getSelectedValue();
-       Mascota m=(Mascota) listaMascotas.getSelectedValue();
-       String h=hora.getText();
-       Paseo p = new Paseo(u,m,h);
+        if (!listaMascotas.isSelectionEmpty()&&!listaUsuarios.isSelectionEmpty()&&modelo.validarHora(hora.getText())) {
+            Usuario u=(Usuario) listaUsuarios.getSelectedValue();
+            Mascota m=(Mascota) listaMascotas.getSelectedValue(); 
+            
+       Paseo p = new Paseo(u,m,hora.getText());
        modelo.getListaPaseos().add(p);
        Date fecha=calendarioFecha.getDate();
        GregorianCalendar gc=new GregorianCalendar();
@@ -149,20 +149,40 @@ public void cargarMascotas() {
        int dia=gc.get(GregorianCalendar.DAY_OF_MONTH);
        int mes= gc.get(GregorianCalendar.MONTH) + 1;
        Actividad actividad= new Actividad(m,u,dia,mes,p,PASEO);
-       modelo.notificacion.scheduleMail(u, actividad.toString(), fecha);
+       modelo.notificacion.scheduleMail(u, modelo.mensajeRetorno(actividad),fecha);
        m.getListaActividades().add(actividad);
+       this.dispose();
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Verifique que haya ingresado correctamente los datos");
+            if (listaMascotas.isSelectionEmpty()) {
+                JOptionPane.showMessageDialog(this, "Elija una mascota");
+            }
+            if (listaUsuarios.isSelectionEmpty()) {
+                JOptionPane.showMessageDialog(this, "Elija un Usuario");
+            }
+            if (!modelo.validarHora(hora.getText())) {
+                JOptionPane.showMessageDialog(this, "Ingrese correctamente la hora");
+            }
+            
+        }
+       
+       
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
 this.dispose();
     }//GEN-LAST:event_botonSalirActionPerformed
 
+    private void horaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_horaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonSalir;
     private com.toedter.calendar.JDateChooser calendarioFecha;
-    private javax.swing.JLabel fechaPrueba;
     private javax.swing.JTextField hora;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

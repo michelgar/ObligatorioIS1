@@ -62,25 +62,11 @@ public class Actividad {
         this.paseo = paseo;
     }
 
-    public String mensajeRetorno(){
-        String retorno="Fecha: "+dia+"/"+mes;
-            switch(this.tipo){
-                case PASEO:
-                retorno=retorno+"Paseo";
-                case BAÑO:
-                retorno=retorno+"Baño";
-                case ALIMENTADO:
-                retorno=retorno+"Dar comida";
-                case VETERINARIO:
-                retorno=retorno+"Ida al veterinario";
-            }
-                
-   return retorno;
-}
+    
    
      @Override
     public String toString() {
-        return this.mensajeRetorno();
+        return " ";
     }
    
 }

@@ -82,7 +82,7 @@ public class Sistema {
             String minutos = separo[1]; 
             int h=Integer.parseInt(horas);
             int m=Integer.parseInt(minutos);
-            if(h>24||h<0||m>60||m<0){
+            if(h>24||h<0||m>60||m<0||separo.length>5){
                 esValido =false;
             }else{
                 return true;
@@ -103,4 +103,23 @@ public class Sistema {
  public void agregarAlimento(){
      this.getListaAlimentos().add("Dog chow");
  }
+ public String mensajeRetorno(Actividad ac){
+        String retorno="Fecha: "+ac.dia+"/"+ac.mes+" Responsable: "+ac.getUsuario()+" Actividad: ";
+            switch(ac.tipo){
+                case PASEO:
+                retorno=retorno+" Paseo ";
+                break;
+                case BAÑO:
+                retorno=retorno+" Baño ";
+                break;
+                case ALIMENTADO:
+                retorno=retorno+" Dar comida ";
+                break;
+                case VETERINARIO:
+                retorno=retorno+" Ida al veterinario ";
+                break;
+            }
+                
+   return retorno;
+}
 }

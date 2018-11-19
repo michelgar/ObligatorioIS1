@@ -1,5 +1,6 @@
 
 package Interfaz;
+import Dominio.Actividad;
 import Dominio.Sistema;
 
 import javax.swing.JButton;
@@ -9,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
 
 
 public class CalendarioComun extends javax.swing.JFrame {
@@ -36,6 +38,7 @@ int realYear, realMonth, realDay, currentYear, currentMonth;
                 
             }
         }
+        
         botonSig.addActionListener(new btnNext_Action());
         
          GregorianCalendar cal = new GregorianCalendar(); //Create calendar
@@ -45,7 +48,7 @@ int realYear, realMonth, realDay, currentYear, currentMonth;
         currentMonth = realMonth; //Match month and year
         currentYear = realYear;
        this.llenarCalendario(realMonth, realYear);
-
+      
     }
    public class btnNext_Action implements ActionListener{
         public void actionPerformed (ActionEvent e){
@@ -73,16 +76,15 @@ int realYear, realMonth, realDay, currentYear, currentMonth;
        
    }
    
-   public void colorearActividad(String dia,int mes){
-       for (int i = 1; i <7; i++) { 
-          
-            for (int j = 0; j < 7; j++) {
-                
-                String d=botones[i][j].getText();
-                if(d.equalsIgnoreCase(dia)){
-                    
-                }
-                
+   public void colorearActividad(int mes,int fila,int col){
+           
+            for (int a = 0; a < modelo.getListaActividades().size(); a++) {
+            Actividad ac=(modelo.getListaActividades().get(a));
+             String d=botones[fila][col].getText();
+             String diaAc=Integer.toString(ac.getDia());
+                if(d.equalsIgnoreCase(diaAc)&&mes==currentMonth){
+                    botones[fila][col].setBackground(Color.yellow);
+
             }
        }
    }
@@ -100,6 +102,7 @@ int realYear, realMonth, realDay, currentYear, currentMonth;
            if(cont<=cal.getActualMaximum(Calendar.DAY_OF_MONTH)){
                String num = Integer.toString(cont);
                botones[i][j].setText(num);
+               this.colorearActividad(mes, i, j);
             primerDia++;
             cont++;
             if(primerDia>6){
@@ -131,8 +134,19 @@ int realYear, realMonth, realDay, currentYear, currentMonth;
     }
 
 private void clickBoton(int fila, int columna) {
+        for (int a = 0; a < modelo.getListaActividades().size(); a++) {
+            Actividad ac=(modelo.getListaActividades().get(a));
+           
+             String diaAc=Integer.toString(ac.getDia());
+             String d=botones[fila][columna].getText();
+             
+                if(d.equalsIgnoreCase(diaAc)&&ac.getMes()==(currentMonth+1)){
+                   
+                   JOptionPane.showMessageDialog(this, modelo.mensajeRetorno(ac));
 
-       
+            }           
+            }
+      
        
     }
     
@@ -185,7 +199,7 @@ private void clickBoton(int fila, int columna) {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(100, 100, 100)
                         .addComponent(panelCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +207,7 @@ private void clickBoton(int fila, int columna) {
                 .addComponent(mes, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonSig)
                     .addComponent(jButton2))

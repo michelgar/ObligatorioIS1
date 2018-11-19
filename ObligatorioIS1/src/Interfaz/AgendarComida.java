@@ -134,8 +134,9 @@ public void cargarAlimento() {
         int dia=gc.get(GregorianCalendar.DAY_OF_MONTH);
         int mes= gc.get(GregorianCalendar.MONTH) + 1;
         Actividad actividad= new Actividad(m,u,dia,mes,null,ALIMENTADO);
-        modelo.notificacion.scheduleMail(u, actividad.toString(), fecha);
+       // modelo.notificacion.scheduleMail(u, actividad.toString(), fecha);
         m.getListaActividades().add(actividad);
+        this.dispose();
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
